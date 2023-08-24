@@ -78,7 +78,7 @@
 
     {% for post in posts %}
         <div class="post">
-            <div class="subject"><a href="{{'/blog/' ~ post.id }}">{{ post.subject }}<t>{{ user_post }}</t></a></div>
+            <div class="subject"><a href="{{'/blog/' ~ post.id }}">{{ post.subject }}<t>{{ post.user_id }}</t></a></div>
             <div class="date">{{ post.created.date().strftime("%b %d, %Y") }}</div>
             <hr>
             <pre class="blog">{{ post.content }}</pre>

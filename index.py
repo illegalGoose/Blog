@@ -26,6 +26,7 @@ class Post(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     subject = db.Column(db.String(100), unique = True)
     content = db.Column(db.Text, unique = True)
+    user_id = db.Column(db.Integer, unique = False)
     created = db.Column(db.DateTime, default = datetime.utcnow)
 
 class users_data(db.Model):
@@ -142,16 +143,15 @@ def login():
 
 @app.route("/logout")
 def logout():
-    response = redirect("/login")
+    response = redirect("/signup")
     response.set_cookie('user_id', '', expires=0)
     return response
-
-USER_POST = ''
 
 @app.route("/blog")  
 def main_page():
     t = jinja_env.get_template("blog.html")
     posts = Post.query.order_by(Post.created.desc()).all()
+    post_id = []
     if len(posts) > 10:
         posts = posts[0:10]
     if request.cookies.get('user_id'):
@@ -162,8 +162,8 @@ def main_page():
                 user_id = int(cookie_val)
             else:
                 return redirect("/signup")
-        username = users_data.query.filter_by(id=user_id).first().username
-        return t.render(posts=posts, name_of_the_user=username, user_post=USER_POST)
+        name_of_the_user = users_data.query.filter_by(id=user_id).first().username
+        return t.render(posts=posts, name_of_the_user=name_of_the_user)
     return t.render(posts=posts)
 
 @app.route("/blog/<int:id>")
@@ -190,11 +190,13 @@ def permalink(id):
 def new_post():
     t = jinja_env.get_template("newpost.html")
     if request.cookies.get('user_id'):
+        user_id = int(check_secure_val(request.cookies.get('user_id')))
+        username = users_data.query.filter_by(id=user_id).first().username
         if request.method == 'POST':
             subject = request.form["subject"]
             content = request.form["content"]
             if subject and content:
-                posts = Post(subject=subject, content=content)
+                posts = Post(subject=subject, content=content, user_id=username)
                 db.session.add(posts)
                 db.session.commit()
                 post_id = str(posts.id)
