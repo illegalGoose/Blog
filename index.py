@@ -143,7 +143,7 @@ def login():
 
 @app.route("/logout")
 def logout():
-    response = redirect("/signup")
+    response = redirect("/login")
     response.set_cookie('user_id', '', expires=0)
     return response
 
@@ -155,6 +155,7 @@ def main_page():
     if len(posts) > 10:
         posts = posts[0:10]
     if request.cookies.get('user_id'):
+        logging = "Log out"
         user_id_cookie_str = request.cookies.get('user_id')
         if user_id_cookie_str:
             cookie_val = check_secure_val(user_id_cookie_str)
@@ -163,8 +164,9 @@ def main_page():
             else:
                 return redirect("/signup")
         name_of_the_user = users_data.query.filter_by(id=user_id).first().username
-        return t.render(posts=posts, name_of_the_user=name_of_the_user)
-    return t.render(posts=posts)
+        return t.render(posts=posts, name_of_the_user=name_of_the_user, logging=logging)
+    logging = "Log in"
+    return t.render(posts=posts, logging=logging)
 
 @app.route("/blog/<int:id>")
 def permalink(id):
