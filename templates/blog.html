@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TwiNter</title>
+
+    <style>
+        h1{
+            display: flex;
+            justify-content: center;
+        }
+
+        h3{
+            display: flex;
+            justify-content: right;
+            margin-right: 17%;
+            margin-top: -45px;
+        }
+
+        h4{
+            display: flex;
+            justify-content: left;
+            margin-left: 20%;
+            font-size: 20px;
+        }
+
+        .userAndPost{
+            margin-top: -27px;
+            margin-bottom: -25px;
+        }
+
+        a{
+            color: black;
+            text-decoration: none;
+        }
+
+        .subject{
+            font-weight: bold;
+            font-size: 20px;
+        }
+        .blog{
+            font-size: 14px;
+            font-family: 'Times New Roman', Times, serif;
+        }
+        hr{
+            margin-right: 20%;
+            height: 2px;
+            background-color: black;
+        }
+        .post{
+            margin-left: 20%;
+        }
+        .date{
+            text-align: right;
+            margin-right: 20%;
+            margin-top: -20px;
+            color: grey;
+        }
+        t{
+            color: grey;
+            font-size: 15px;
+            position: absolute;
+            margin-left: 10px;
+            margin-top: 3px;
+        }
+    </style>
+
+</head>
+<body>
+    <a href="/blog"><h1>TwiNter</h1></a>
+    <div class="userAndPost">
+        <h4>{{ name_of_the_user }} <a href="/logout"><input type="submit" value="Log out" style="background-color: rgb(187, 185, 185); color: rgb(11, 1, 1);border-radius: 5px; cursor: pointer; font-weight: 600; margin-left: 5px; position: absolute;"></a></h4>
+        <a href="/blog/newpost"><h3>+ Add New Post</h3></a>
+    </div>
+
+    <br>
+
+    {% for post in posts %}
+        <div class="post">
+            <div class="subject"><a href="{{'/blog/' ~ post.id }}">{{ post.subject }}<t>{{ user_post }}</t></a></div>
+            <div class="date">{{ post.created.date().strftime("%b %d, %Y") }}</div>
+            <hr>
+            <pre class="blog">{{ post.content }}</pre>
+        </div>
+    {% endfor %}
+
+</body>
+</html>

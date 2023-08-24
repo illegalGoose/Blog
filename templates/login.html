@@ -1,0 +1,17 @@
+<form method="post" style="margin-top: 15%;">
+    <h1 style="display: flex; justify-content: center;">Login</h1>
+    <br>
+    <table style="display: flex; justify-content: center;">
+        <tr>
+            <td style="text-align: right; font-size: 20px;">Username</td>
+            <td><input type="text" name="username" value="{{ user_name }}"> <span style="color: red;"></span></td>
+        </tr>
+        <tr>
+            <td style="text-align: right; font-size: 20px;">Password</td>
+            <td><input type="password" name="password"> <span style="color: red;"></span></td>
+        </tr>
+    </table>
+    <span style="color: red; display: flex; justify-content: center; margin-left: 35px;">{{ invalid_login }}</span>
+    <br>
+    <input type="submit" value="Submit" style="background-color: rgb(66, 68, 68); color: white; margin-top: 10px; border-radius: 5px; margin-left: 48%;">
+</form>
