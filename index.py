@@ -177,15 +177,18 @@ def permalink(id):
         posts_id.append(post.id)
     if id in posts_id:
         posts = posts[id - 1]
-        user_id_cookie_str = request.cookies.get('user_id')
-        if user_id_cookie_str:
+        if request.cookies.get('user_id'):
+            logging = "Log out"
+            user_id_cookie_str = request.cookies.get('user_id')
             cookie_val = check_secure_val(user_id_cookie_str)
             if cookie_val:
                 user_id = int(cookie_val)
+                username = users_data.query.filter_by(id=user_id).first().username
+                return t.render(posts=posts, name_of_the_user=username, logging=logging)
             else:
                 return redirect("/signup")
-        username = users_data.query.filter_by(id=user_id).first().username
-        return t.render(posts=posts, name_of_the_user=username, user_post=username)
+        logging = "Log in"
+        return t.render(posts=posts, logging=logging)
     return abort(404)
 
 @app.route("/blog/newpost", methods=['GET', 'POST'])
