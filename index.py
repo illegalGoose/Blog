@@ -196,20 +196,21 @@ def new_post():
     t = jinja_env.get_template("newpost.html")
     if request.cookies.get('user_id'):
         user_id = int(check_secure_val(request.cookies.get('user_id')))
-        username = users_data.query.filter_by(id=user_id).first().username
-        if request.method == 'POST':
-            subject = request.form["subject"]
-            content = request.form["content"]
-            if subject and content:
-                posts = Post(subject=subject, content=content, user_id=username)
-                db.session.add(posts)
-                db.session.commit()
-                post_id = str(posts.id)
-                return redirect("/blog/" + post_id)
-            else:
-                error = "We need both a subject and blog"
-                return t.render(error=error, subject=subject, content=content) 
-        return t.render()
+        if user_id:
+            username = users_data.query.filter_by(id=user_id).first().username
+            if request.method == 'POST':
+                subject = request.form["subject"]
+                content = request.form["content"]
+                if subject and content:
+                    posts = Post(subject=subject, content=content, user_id=username)
+                    db.session.add(posts)
+                    db.session.commit()
+                    post_id = str(posts.id)
+                    return redirect("/blog/" + post_id)
+                else:
+                    error = "We need both a subject and blog"
+                    return t.render(error=error, subject=subject, content=content) 
+            return t.render()
     return redirect("/signup")
 
 if __name__ == "__main__":

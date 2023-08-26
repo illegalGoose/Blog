@@ -1,25 +1,64 @@
-<a style="display: flex; justify-content: center; color: black; text-decoration: none;" href="/blog"><h1>TwiNter</h1></a>
-<form method="post" style="margin-top: 10%;">
-    <h1 style="display: grid; justify-content: center;">Signup</h1>
-    <br>
-    <table style="display: grid; justify-content: center;">
-        <tr>
-            <td style="text-align: right; font-size: 20px;">Username</td>
-            <td><input type="text" name="username" value="{{ user_name }}"> <span style="color: red;">{{ invalid_username }}</span></td>
-        </tr>
-        <tr>
-            <td style="text-align: right; font-size: 20px;">Password</td>
-            <td><input type="password" name="password"> <span style="color: red;">{{ invalid_password }}</span></td>
-        </tr>
-        <tr>
-            <td style="font-size: 20px;">Verify Password</td>
-            <td><input type="password" name="verify"> <span style="color: red;">{{ passwords_missmatch }}</span></td>
-        </tr>
-        <tr>
-            <td style="text-align: right; font-size: 20px;">Email(Optional)</td>
-            <td><input type="email" name="email" value="{{ user_email }}"></h3> <span style="color: red;">{{ invalid_email }}</span></td>
-        </tr> 
-    </table>
-    <a href="/login" style="color: black; text-decoration: none; display: flex; justify-content: center;"><h3>Already registered?</h3></a>
-    <input type="submit" value="Submit" style="background-color: rgb(66, 68, 68); color: white; margin-left: 48%; border-radius: 5px; cursor: pointer;">
-</form>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TwiNter</title>
+    <style>
+        a{
+            color: black;
+            text-decoration: none;
+            font-size: 20px;
+        }
+        h1{
+            display: flex;
+            justify-content: center;
+        }
+        form{
+            margin-top: 10%;
+        }
+        table{
+            display: flex;
+            justify-content: center;
+        }
+        td{
+            text-align: right;
+            font-size: 20px;
+        }
+        @media screen and (max-width: 400px) {
+            form{
+                margin-top: 40%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="/blog"><h1>TwiNter</h1></a>
+    <form method="post">
+        <h1>Signup</h1>
+        <br>
+        <table>
+            <tr>
+                <td>Username</td>
+                <td><input type="text" name="username" value="{{ user_name }}"> <span style="color: red;">{{ invalid_username }}</span></td>
+            </tr>
+            <tr>
+                <td>Password</td>
+                <td><input type="password" name="password"> <span style="color: red;">{{ invalid_password }}</span></td>
+            </tr>
+            <tr>
+                <td>Verify Password</td>
+                <td><input type="password" name="verify"> <span style="color: red;">{{ passwords_missmatch }}</span></td>
+            </tr>
+            <tr>
+                <td>Email(Optional)</td>
+                <td><input type="email" name="email" value="{{ user_email }}"></h3> <span style="color: red;">{{ invalid_email }}</span></td>
+            </tr> 
+        </table>
+        <a href="/login" style="display: flex; justify-content: center;"><h3>Already registered?</h3></a>
+        <div style="text-align: center;">
+            <input type="submit" value="Submit" style="background-color: rgb(66, 68, 68); color: white; border-radius: 5px; cursor: pointer; font-size: 20px;">
+        </div>
+    </form>
+</body>
+</html>

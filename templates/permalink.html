@@ -13,13 +13,17 @@
         a{
             color: black;
             text-decoration: none;
+            font-size: 20px;
         }
-
         .post{
-            margin-left: 20%;
+            margin-inline: 20%;
+        }
+        .subjectAndDate{
+            display: flex;
+            justify-content: space-between;
+            font-weight: bold;
         }
         .subject{
-            font-weight: bold;
             font-size: 20px;
         }
         .blog{
@@ -27,24 +31,18 @@
             font-family: 'Times New Roman', Times, serif;
         }
         hr{
-            margin-right: 20%;
             height: 2px;
             background-color: black;
         }
         .date{
             text-align: right;
-            margin-right: 20%;
-            margin-top: -20px;
             color: grey;
         }
         .user{
-            margin-top: -27px;
-            margin-bottom: -25px;
+            display: flex;
+            margin-left: 20%;
         }
         h4{
-            display: flex;
-            justify-content: left;
-            margin-left: 20%;
             font-size: 20px;
         }
         t{
@@ -53,6 +51,22 @@
             position: absolute;
             margin-left: 10px;
             margin-top: 3px;
+        }
+        @media screen and (max-width: 400px) {
+            .user{
+                display: flex;
+                justify-content: center;
+                margin: 0;
+            }
+            h4{
+                font-size: 20px;
+                margin-right: 60px;
+                margin-top: 10px;
+            }
+            .post{
+                margin-inline: 10%;
+                margin-top: -10px;
+            }
         }
     </style>
 </head>
@@ -65,9 +79,11 @@
 
     <br>
 
-    <div class="post" style="margin-top: 20px;">
-        <div class="subject">{{ posts.subject }}<t>{{ user_post }}</t></div>
-        <div class="date">{{ posts.created.date().strftime("%b %d, %Y") }}</div>
+    <div class="post">
+        <div class="subjectAndDate">
+            <div class="subject">{{ posts.subject }}<t>{{ user_post }}</t></div>
+            <div class="date">{{ posts.created.date().strftime("%b %d, %Y") }}</div>
+        </div>
         <hr>
         <p style="white-space: pre-wrap; margin-right: 20%; word-wrap: break-word;">{{ posts.content }}</p>
     </div>
