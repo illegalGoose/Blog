@@ -10,59 +10,43 @@
             display: flex;
             justify-content: center;
         }
-
-        h3{
-            display: flex;
-            justify-content: right;
-            margin-right: 17%;
-            margin-top: -26px;
-        }
-
-        h4{
-            display: flex;
-            justify-content: left;
-            margin-left: 20%;
-            font-size: 20px;
-            margin-bottom: 4px;
-        }
-
         .userAndPost{
-            margin-top: -27px;
+            display: flex;
+            justify-content: space-between;
+            margin-inline: 20%;
+            font-size: 20px;
         }
 
         a{
             color: black;
             text-decoration: none;
+            font-size: 20px;
         }
 
-        .subject{
+        .subjectAndDate{
+            display: flex;
+            justify-content: space-between;
             font-weight: bold;
-            font-size: 20px;
         }
         .blog{
             font-size: 14px;
             font-family: 'Times New Roman', Times, serif;
         }
         hr{
-            margin-right: 20%;
             height: 2px;
             background-color: black;
         }
         .post{
-            margin-left: 20%;
+            margin-inline: 20%;
         }
         .date{
             text-align: right;
-            margin-right: 20%;
-            margin-top: -20px;
             color: grey;
         }
         t{
             color: grey;
             font-size: 15px;
-            position: absolute;
             margin-left: 10px;
-            margin-top: 3px;
         }
     </style>
 
@@ -78,10 +62,11 @@
 
     {% for post in posts %}
         <div class="post">
-            <div class="subject"><a href="{{'/blog/' ~ post.id }}">{{ post.subject }}<t>{{ post.user_id }}</t></a></div>
-            <div class="date">{{ post.created.date().strftime("%b %d, %Y") }}</div>
+            <div class="subjectAndDate"><a href="{{'/blog/' ~ post.id }}">{{ post.subject }}<t>{{ post.user_id }}</t></a>
+                <div class="date">{{ post.created.date().strftime("%b %d, %Y") }}</div>
+            </div>
             <hr>
-            <p style="white-space: pre-wrap; margin-right: 20%; word-wrap: break-word;">{{ post.content }}</p>
+            <p style="white-space: pre-wrap; word-wrap: break-word;">{{ post.content }}</p>
         </div>
     {% endfor %}
 
