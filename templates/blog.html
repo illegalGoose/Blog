@@ -9,6 +9,7 @@
         h1{
             display: flex;
             justify-content: center;
+            text-shadow: 0px 0px 16px #a11717;
         }
         .userAndPost{
             display: flex;
@@ -16,7 +17,6 @@
             margin-inline: 20%;
             font-size: 20px;
         }
-
         a{
             color: black;
             text-decoration: none;
@@ -47,6 +47,13 @@
             color: grey;
             font-size: 15px;
             margin-left: 10px;
+        }
+        h3:hover{
+            font-size: 24px;
+            transition: 0.5s;
+        }
+        p{
+            font-family: cursive;
         }
         @media screen and (max-width: 400px) {
             h1{
@@ -93,14 +100,14 @@
             t{
                 color: grey;
                 font-size: 15px;
-                margin-left: 10px;
+                display: table-row;
             }
         }
     </style>
 
 </head>
 <body>
-    <a href="/blog"><h1>TwiNter</h1></a>
+    <a href="/blog"><h1>TwiNter</h1>
     <div class="userAndPost">
         <h4>{{ name_of_the_user }} <a href="/logout"><input type="submit" value="{{ logging }}" style="background-color: rgb(187, 185, 185); color: rgb(11, 1, 1);border-radius: 5px; cursor: pointer; font-weight: 600; margin-left: 5px; position: absolute;"></a></h4>
         <a href="/blog/newpost"><h3>+ Add New Post</h3></a>
@@ -110,13 +117,23 @@
 
     {% for post in posts %}
         <div class="post">
-            <div class="subjectAndDate"><a href="{{'/blog/' ~ post.id }}">{{ post.subject }}<t>{{ post.user_id }}</t></a>
-                <div class="date">{{ post.created.date().strftime("%b %d, %Y") }}</div>
-            </div>
+            {% if post.subject|length < 17 %}
+                <div class="subjectAndDate"><a href="{{'/blog/' ~ post.id }}">{{ post.subject }}<t>{{ post.user_id }}</t></a>
+                    <div class="date">{{ post.created.date().strftime("%b %d, %Y") }}</div>
+                </div>
+            {% else %}
+                <div class="subjectAndDate"><a href="{{'/blog/' ~ post.id }}">{{ post.subject[0:17] + "..."}}<t>{{ post.user_id }}</t></a>
+                    <div class="date">{{ post.created.date().strftime("%b %d, %Y") }}</div>
+                </div>
+            {% endif %}
             <hr>
-            <p style="white-space: pre-wrap; word-wrap: break-word;">{{ post.content }}</p>
+            {% if post.content|length < 68 %}
+                <p style="white-space: pre-wrap; word-wrap: break-word;">{{ post.content }}</p>
+            {% else %}
+                <p style="white-space: pre-wrap; word-wrap: break-word;">{{ post.content[0:67] }}<t>...</t></p>
+            {% endif %}
         </div>
     {% endfor %}
-
+    <script src="/Blog/main.js"></script>
 </body>
 </html>

@@ -8,6 +8,7 @@
         h1{
             display: flex;
             justify-content: center;
+            text-shadow: 0px 0px 16px #a11717;
         }
 
         a{
@@ -52,6 +53,9 @@
             margin-left: 10px;
             margin-top: 3px;
         }
+        p{
+            font-family: cursive;
+        }
         @media screen and (max-width: 400px) {
             .user{
                 display: flex;
@@ -81,11 +85,15 @@
 
     <div class="post">
         <div class="subjectAndDate">
-            <div class="subject">{{ posts.subject }}<t>{{ user_post }}</t></div>
+            {% if posts.subject|length < 17 %}
+                <div class="subject">{{ posts.subject }}<t>{{ user_post }}</t></div>
+            {% else %}
+                <div class="subject">{{ posts.subject[0:17] + "..."}}<t>{{ user_post }}</t></div>
+            {% endif %}
             <div class="date">{{ posts.created.date().strftime("%b %d, %Y") }}</div>
         </div>
         <hr>
-        <p style="white-space: pre-wrap; margin-right: 20%; word-wrap: break-word;">{{ posts.content }}</p>
+        <p style="white-space: pre-wrap; word-wrap: break-word;">{{ posts.content }}</p>
     </div>
 
 </body>
